@@ -32,7 +32,7 @@
       background: var(--bg);
       color: var(--text);
       font-family: Calibri, Carlito, "Segoe UI", Arial, sans-serif;
-      font-size: 1.125rem;
+      font-size: 1.11rem;
       line-height: 1.65;
       -webkit-text-size-adjust: 100%;
     }
@@ -51,8 +51,8 @@
     margin: 0 0 0.5em;
     }
 
-    h1 { font-size: clamp(2.2rem, 8vw, 3.75rem); }
-    h2 { font-size: clamp(1.9rem, 6vw, 2.75rem); }
+    h1 { font-size: clamp(3.4rem, 8vw, 3.75rem); }
+    h2 { font-size: clamp(2.8rem, 6vw, 2.75rem); }
     h3 { font-size: 2.1rem; }
 
     a { color: var(--accent); }
@@ -103,6 +103,11 @@
     nav { display: flex; gap: 1.1rem; }
     nav a { text-decoration: none; color: var(--muted); font-size: 1rem; }
     nav a:hover { color: var(--accent); }
+
+    /* Hide the header */
+    header.site {
+    display: none;
+    }
 
     /* Hero */
     .hero {
@@ -218,7 +223,7 @@
 
     .resume h4 {
     font-family: Calibri, Carlito, "Segoe UI", Arial, sans-serif;
-    font-size: 1.15rem;
+    font-size: 1rem;
     font-weight: 700;
     margin: 0;
     }
@@ -226,7 +231,7 @@
     .resume .designation {
     font-family: Calibri, Carlito, "Segoe UI", Arial, sans-serif;
     color: var(--muted);
-    font-size: 1.125rem;
+    font-size: 1rem;
     margin: 0.15rem 0;
     }
 
@@ -236,26 +241,35 @@
 
     .resume .meta {
     color: var(--muted);
-    font-size: 1.125rem;
+    font-size: 1rem;
     margin: 0.15rem 0;
     }
 
     .resume .org {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 0.75rem;
+      display: flex;
+      align-items: stretch;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .resume .org > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .resume .org img {
-    height: 48px;
-    width: auto;
-    max-width: 140px;
-    object-fit: contain;
+      width: auto;
+      height: auto;
+      max-width: 82px;
+      min-height: 48px;
+      align-self: stretch;
+      object-fit: contain;
+      flex-shrink: 0;
     }
 
     .resume ul {
-    padding-left: 1.2rem;
+    padding-left: 1rem;
     margin: 0.6rem 0 0;
     }
 
@@ -265,7 +279,19 @@
     }
 
     .resume .role {
-    margin-top: 1.25rem;
+    margin-top: 1rem;
+    }
+
+    @media (max-width: 699px) {
+    .resume h4 .break {
+      display: block;
+    }
+    }
+
+    @media (max-width: 699px) {
+    .resume .meta .break {
+      display: block;
+    }
     }
 
     /* Removing space at the bottom of the page */
@@ -386,11 +412,12 @@
         <div class="org">
         <img src="images/oxford_logo.png" alt="University of Oxford logo">
         <div>
-            <h4>University of Oxford – Mathematical Institute</h4>
+            <h4>University of Oxford – <span class="break"> </span>Mathematical Institute</h4>
             <p class="meta">Oxford, UK</p>
         </div>
         </div>
-        <p class="designation">MSc, Mathematical Sciences · Oct 2026 – Jun 2027</p>
+        <p class="designation">MSc, Mathematical Sciences</p>
+        <p class="meta">Oct 2026 – Jun 2027</p>
         <ul>
         <li><strong>Current Course Topics:</strong> Numerical Linear Algebra, Deep Learning Theory, Combinatorics, Additive Number Theory</li>
         </ul>
@@ -401,10 +428,11 @@
         <img src="images/edinburgh_logo.png" alt="University of Edinburgh logo">
         <div>
             <h4>University of Edinburgh</h4>
-            <p class="meta">Edinburgh, UK (Remote) · Sep 2025 – Jun 2026</p>
+            <p class="meta">Edinburgh, UK <span class="break"> </span>(Remote)</p>
         </div>
         </div>
         <p class="designation">Postgraduate Professional Development, High Performance Computing (HPC)</p>
+        <p class="meta">Sep 2025 – Jun 2026</p>
         <ul>
         <li><strong>Computing:</strong> Completed “Practical Introduction to HPC” (Grade: A) through the EPCC (Edinburgh Parallel Computing Centre), running programs on ARCHER2, the UK’s national supercomputer</li>
         </ul>
@@ -414,11 +442,12 @@
         <div class="org">
         <img src="images/UMBC_logo.png" alt="University of Maryland, Baltimore County logo">
         <div>
-            <h4>University of Maryland, Baltimore County</h4>
-            <p class="meta">Baltimore, MD · Aug 2022 – May 2025</p>
+            <h4>University of Maryland,<span class="break"> </span>Baltimore County</h4>
+            <p class="meta">Baltimore, MD</p>
         </div>
         </div>
         <p class="designation">BA, Mathematics | Minor, Statistics</p>
+        <p class="meta">Aug 2022 – May 2025</p>
         <ul>
         <li><strong>Honors:</strong> 4.0/4.0 GPA, Summa Cum Laude, Departmental Honors; graduated in 3 years</li>
         <li><strong>Awards:</strong> Outstanding Graduating Senior in Mathematics; merit scholarship/research funding ($21,000) </li>
@@ -439,7 +468,8 @@
         </div>
 
         <div class="role">
-        <p class="designation">Analyst, Data Governance &amp; AI Risk <span class="meta">· Jul 2025 – Jul 2026</span></p>
+        <p class="designation">Analyst, Data Governance &amp; AI Risk</p>
+        <p class="meta">Jul 2025 – Jul 2026</p>
         <ul>
             <li><strong>Data Quality Analytics:</strong> Built Python (NumPy, Pandas), Alteryx, and Excel workflows to profile 1M+ rows of firm-wide data across accuracy, completeness, and timeliness dimensions.</li>
             <li><strong>Regulatory Analytics:</strong> Independently built an Alteryx/Python workflow and interactive Power BI dashboard addressing a European Central Bank (ECB) regulatory finding; senior management commissioned an official firm-wide build based on the design and logic.</li>
@@ -449,7 +479,8 @@
         </div>
 
         <div class="role">
-        <p class="designation">Summer Analyst, Non-Financial Risk <span class="meta">· Jun 2024 – Aug 2024</span></p>
+        <p class="designation">Summer Analyst, Non-Financial Risk</p>
+        <p class="meta">Jun 2024 – Aug 2024</p>
         <ul>
             <li><strong>Scenario Analysis:</strong> Optimized the global scenario analysis program; recognized by the Global Head of Operational Risk for significant contributions and excellent performance.</li>
         </ul>
