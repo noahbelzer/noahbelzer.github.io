@@ -1,10 +1,501 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Noah Belzer</title>
+  <meta name="description" content="Master's-Level Mathematician">
+
+  <!-- Fonts: Bodoni Moda SC for headers. Carlito is a free, metric-compatible Calibri
+       substitute so the body text looks right on phones without Calibri installed. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:wght@400;500;600;700&family=Carlito:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #faf8f5;
+      --text: #1f1f1f;
+      --muted: #666;
+      --accent: #57361f;
+      --card: #ffffff;
+      --line: #e6e1d8;
+      --max: 960px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Calibri, Carlito, "Segoe UI", Arial, sans-serif;
+      font-size: 1.125rem;
+      line-height: 1.65;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    h1, h2 {
+    font-family: "Bodoni Moda SC", "Bodoni 72", Didot, Georgia, serif;
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0 0 0.5em;
+    }
+
+    h3 {
+    font-family: Calibri, Carlito, "Segoe UI", Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.15;
+    margin: 0 0 0.5em;
+    }
+
+    h1 { font-size: clamp(2.2rem, 8vw, 3.75rem); }
+    h2 { font-size: clamp(1.9rem, 6vw, 2.75rem); }
+    h3 { font-size: 2.1rem; }
+
+    a { color: var(--accent); }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    section { padding: 3rem 0; }
+    section + section { border-top: 1px solid var(--line); }
+
+    /* Header / nav */
+    header.site {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    header.site .wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.5rem 1rem;
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+    }
+
+    .brand {
+      font-family: "Bodoni Moda SC", Georgia, serif;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    nav { display: flex; gap: 1.1rem; }
+    nav a { text-decoration: none; color: var(--muted); font-size: 1rem; }
+    nav a:hover { color: var(--accent); }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      gap: 2rem;
+      align-items: center;
+      padding-top: 2.5rem;
+    }
+
+    .hero .tagline { color: var(--muted); font-size: 1.2rem; }
+
+    .hero img.portrait {
+      width: 100%;
+      max-width: 340px;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 50%;
+      margin: 0 auto;
+      border: 4px solid var(--card);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    /* Project cards */
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .card img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+
+    .card .body { padding: 1.1rem 1.25rem 1.4rem; }
+    .card p { margin: 0 0 0.75rem; color: var(--muted); }
+
+    /* Figure with caption (use anywhere you want a standalone image) */
+    figure { margin: 1.5rem 0; }
+    figure img { border-radius: 8px; width: 100%; }
+    figcaption { color: var(--muted); font-size: 0.95rem; margin-top: 0.5rem; }
+
+    footer {
+      padding: 2rem 0 3rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
+      border-top: 1px solid var(--line);
+    }
+
+    /* Social links */
+    .social {
+        display: flex;
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+
+    .social a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        border: 1px solid var(--line);
+        background: var(--card);
+        transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .social img {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+    }
+
+    .social a[aria-label="LinkedIn"] img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .social a[aria-label="GitHub"] img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .social a:hover {
+        transform: translateY(-2px);
+        border-color: var(--accent);
+    }
+
+    /* Resume */
+    .resume .entry {
+    margin: 2rem 0;
+    }
+
+    .resume h4 {
+    font-family: Calibri, Carlito, "Segoe UI", Arial, sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    }
+
+    .resume .designation {
+    font-family: Calibri, Carlito, "Segoe UI", Arial, sans-serif;
+    color: var(--muted);
+    font-size: 1.1rem;
+    margin: 0.15rem 0;
+    }
+
+    .resume h3 {
+    margin-top: 4rem;
+    }
+
+    .resume .meta {
+    color: var(--muted);
+    font-size: 0.98rem;
+    margin: 0.15rem 0;
+    }
+
+    .resume .org {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    }
+
+    .resume .org img {
+    height: 48px;
+    width: auto;
+    max-width: 140px;
+    object-fit: contain;
+    }
+
+    .resume ul {
+    padding-left: 1.2rem;
+    margin: 0.6rem 0 0;
+    }
+
+    .resume li {
+    margin-bottom: 0.45rem;
+    font-size: 0.98rem;
+    }
+
+    .resume .role {
+    margin-top: 1.25rem;
+    }
+
+    /* Removing space at the bottom of the page */
+    #contact {
+    padding-bottom: 0;
+    }
+
+    footer {
+    padding: 1.5rem 0 2rem;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    }
+
+    .gallery figure {
+    margin: 0;
+    }
+
+    .gallery img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 8px;
+    }
+
+    .gallery figcaption {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    }
+
+    /* Tablet and up */
+    @media (min-width: 700px) {
+      .hero { grid-template-columns: 1.4fr 1fr; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      section { padding: 4rem 0; }
+    }
+
+    @media (min-width: 960px) {
+      .grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
 </head>
+
 <body>
-    <h1>In Progress</h1>
-    <p>Welcome to my website.</p>
+  <header class="site">
+    <div class="wrap">
+      <nav aria-label="Main">
+        <a href="#bio">Bio</a>
+        <a href="#résumé">Résumé</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="wrap">
+
+      <!-- HERO -->
+      <section class="hero">
+        <div>
+          <h1>Noah Belzer</h1>
+          <p class="tagline">Master's-Level Mathematician</p>
+          <p>I'm currently pursuing the MSc in Mathematical Sciences at the University of Oxford, focusing on combinatorics and deep learning.</p>
+
+          <div class="social">
+            <a href="https://www.linkedin.com/in/noahbelzer/" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <img src="images/InBug-Black.png" alt="" width="28" height="28">
+            </a>
+            <a href="https://github.com/noahbelzer/portfolio" aria-label="GitHub" target="_blank" rel="noopener">
+                <img src="images/GitHub_Invertocat_Black_Clearspace.png" alt="" width="28" height="28">
+            </a>
+          </div>
+
+          <a class="button" href="#résumé">View Résumé</a>
+        </div>
+
+        <!-- Your own photo -->
+        <img class="portrait" src="images/color_non_blurred_cropped.jpg" alt="Portrait of Noah Belzer">
+      </section>
+
+      <!-- BIO -->
+      <section id="bio">
+        <h2>Bio</h2>
+        <p>Noah Belzer is a master's-level mathematician with interests in combinatorics and deep learning, currently pursuing the <a href="https://www.ox.ac.uk/admissions/graduate/courses/msc-mathematical-sciences">MSc in Mathematical Sciences</a> at the University of Oxford.</p>
+        <p>Noah grew up in the Baltimore suburbs, where he attended public school and received formal training in music, studying under jazz bassist <a href="https://tombaldwinbass.com/home">Tom Baldwin</a>. As a teenager, he began self-teaching mathematics, which led him to pursue the <a href="https://umbc.edu/academics/programs/undergraduate/mathematics-statistics/mathematics-b-a-major/">BA in Mathematics</a> at the University of Maryland, Baltimore County (UMBC).</p>
+        <p>During his time at the university, he was mentored by Dr. <a href="https://userpages.umbc.edu/~sousedik/">Bedřich Sousedík</a>, who supervised his senior thesis, <i>Numerical Simulations in Financial Mathematics Applications</i>. Noah extended his training into high-performance computing and statistics, running his programs on the <a href="https://hpcf.umbc.edu/">UMBC High Performance Computing Facility</a>, serving as a Computer Science TA, and completing a minor in statistics. Alongside his studies, he was a Summer Analyst at Morgan Stanley, where he optimized the firm's global scenario analysis program and was recognized by the Global Head of Operational Risk.</p>
+        <p>Noah graduated from UMBC in three years with a 4.0 GPA (summa cum laude). Following graduation, he joined Morgan Stanley full-time as an Analyst while studying part-time and remotely at the University of Edinburgh. At this university, he completed <a href="https://study.ed.ac.uk/programmes/postgraduate-taught/997-high-performance-computing-online-learning">Postgraduate Professional Development in High Performance Computing</a>, where he had the opportunity to run programs on <a href="https://www.epcc.ed.ac.uk/hpc-services/archer2">ARCHER2</a>, the UK's national supercomputer.</p>
+
+      <!-- RESUME -->
+      <section id="résumé" class="resume">
+      <h2>Résumé</h2>
+
+      <h3>Education</h3>
+
+      <article class="entry">
+        <div class="org">
+        <img src="images/oxford_logo.png" alt="University of Oxford logo">
+        <div>
+            <h4>University of Oxford – Mathematical Institute</h4>
+            <p class="meta">Oxford, UK</p>
+        </div>
+        </div>
+        <p class="designation">MSc, Mathematical Sciences · Oct 2026 – Jun 2027</p>
+        <ul>
+        <li><strong>Current Course Topics:</strong> Numerical Linear Algebra, Deep Learning Theory, Combinatorics, Additive Number Theory</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <div class="org">
+        <img src="images/edinburgh_logo.png" alt="University of Edinburgh logo">
+        <div>
+            <h4>University of Edinburgh</h4>
+            <p class="meta">Edinburgh, UK (Remote) · Sep 2025 – Jun 2026</p>
+        </div>
+        </div>
+        <p class="designation">Postgraduate Professional Development, High Performance Computing (HPC)</p>
+        <ul>
+        <li><strong>Computing:</strong> Completed “Practical Introduction to HPC” (Grade: A) through the EPCC (Edinburgh Parallel Computing Centre), running programs on ARCHER2, the UK’s national supercomputer</li>
+        </ul>
+      </article>
+
+      <article class="entry">
+        <div class="org">
+        <img src="images/UMBC_logo.png" alt="University of Maryland, Baltimore County logo">
+        <div>
+            <h4>University of Maryland, Baltimore County</h4>
+            <p class="meta">Baltimore, MD · Aug 2022 – May 2025</p>
+        </div>
+        </div>
+        <p class="designation">BA, Mathematics | Minor, Statistics</p>
+        <ul>
+        <li><strong>Honors:</strong> 4.0/4.0 GPA, Summa Cum Laude, Departmental Honors; graduated in 3 years</li>
+        <li><strong>Awards:</strong> Outstanding Graduating Senior in Mathematics; merit scholarship/research funding ($21,000) </li>
+        <li><strong>TA Role:</strong> Teaching Fellow, Computer Science I (Aug 2023 – Jun 2024); Python and Linux</li>
+        <li><strong>Senior Thesis:</strong> Numerical Simulations in Financial Mathematics Applications (Deep Learning)</li>
+        </ul>
+      </article>
+
+      <h3>Experience</h3>
+
+      <article class="entry">
+        <div class="org">
+        <img src="images/morganstanley_logo.png" alt="Morgan Stanley logo">
+        <div>
+            <h4>Morgan Stanley</h4>
+            <p class="meta">Baltimore, MD</p>
+        </div>
+        </div>
+
+        <div class="role">
+        <p class="designation">Analyst, Data Governance and AI Risk <span class="meta">· Jul 2025 – Jul 2026</span></p>
+        <ul>
+            <li><strong>Data Quality Analytics:</strong> Built Python (NumPy, Pandas), Alteryx, and Excel workflows to profile 1M+ rows of firm-wide data across accuracy, completeness, and timeliness dimensions.</li>
+            <li><strong>Regulatory Analytics:</strong> Independently built an Alteryx/Python workflow and interactive Power BI dashboard addressing a European Central Bank (ECB) regulatory finding; senior management commissioned an official firm-wide build based on the design and logic.</li>
+            <li><strong>AI Automation:</strong> Developed a Copilot agent for automated data classification, adopted across 5+ divisions and featured in a firm newsletter; selected by the Chief Data Governance &amp; Privacy Officer to demonstrate it live to the Global Data Quality Governance Committee.</li>
+            <li><strong>Technical Session Host:</strong> Independently hosted and presented the “Lunch &amp; Learn: Using Claude in Excel” session for MDs, EDs, VPs, and others, demonstrating live prompts.</li>
+        </ul>
+        </div>
+
+        <div class="role">
+        <p class="designation">Summer Analyst, Non-Financial Risk <span class="meta">· Jun 2024 – Aug 2024</span></p>
+        <ul>
+            <li><strong>Scenario Analysis:</strong> Optimized the global scenario analysis program; recognized by the Global Head of Operational Risk for significant contributions and excellent performance.</li>
+        </ul>
+        </div>
+      </article>
+      </section>
+
+      <!-- GALLERY -->
+      <section id="gallery" class="gallery">
+        <h2>Gallery</h2>
+        <div class="gallery-grid">
+
+        <h3> Oxford </h3>
+            <figure>
+            <img src="images/kellogg_dining.png" alt="Describe the photo" loading="lazy">
+            <figcaption>Welcome dinner at the University of Oxford (Kellogg College Dining Hall). Oct 2026.</figcaption>
+            </figure>
+
+        <h3> Morgan Stanley </h3>
+            <figure>
+            <img src="images/talk_at_morgan_stanley.jpg" alt="Describe the photo" loading="lazy">
+            <figcaption>Speaking on the Analyst panel to visiting students from the University of Maryland, Baltimore County (UMBC). April 2026.</figcaption>
+            </figure>
+
+        <h3> Undergraduate Research </h3>
+            <figure>
+            <img src="images/sousedik_urcad.png" alt="Describe the photo" loading="lazy">
+            <figcaption>Faculty mentor, Dr. Bedřich Sousedík. April 2025.</figcaption>
+            </figure>
+
+            <figure>
+            <img src="images/urcad_poster.png" alt="Describe the photo" loading="lazy">
+            <figcaption>Presenting at Undergraduate Research and Creative Achievement Day (URCAD). April 2025.</figcaption>
+            </figure>
+
+        <h3> Music </h3>
+            <figure>
+            <img src="images/baltimore_drums.png" alt="Describe the photo" loading="lazy">
+            <figcaption>Live performance at a record store in Northeast Baltimore. July 2026.</figcaption>
+            </figure>
+
+            <figure>
+            <img src="images/towson_drums.JPG" alt="Describe the photo" loading="lazy">
+            <figcaption>Latin music performance at Towson University. November 2023.</figcaption>
+            </figure>
+
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>
+          <a href="mailto:h.noahbelzer@gmail.com">h.noahbelzer@gmail.com</a><br>
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">© 2026 Noah Belzer</div>
+  </footer>
 </body>
 </html>
